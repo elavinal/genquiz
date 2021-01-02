@@ -1,0 +1,132 @@
+# =============================================================================
+# Examples of questions to test genquiz with a Moodle XML output
+# E. Lavinal - University of Toulouse
+# =============================================================================
+- qname: array-walk
+  type: single
+  text1: <p>After the execution of the following code:</p>
+  code: |
+    int i = 1, tab[4] = {1, 2, 3, 4};
+    while (i < 4)
+    {
+        tab[i] = tab[i] + 1;
+        i = i + 2;
+    }
+  text2: <p>What values are in the <code>tab</code> array?</p>
+  answers:
+      - fraction: 100
+        text: 1, 3, 3, 5
+      - fraction: 0
+        text: 2, 3, 4, 5
+      - fraction: 0
+        text: 2, 2, 4, 4
+      - fraction: 0
+        text: 1, 3, 3, 4
+      - fraction: 0
+        text: 1, 2, 3, 4
+# =============================================================================
+- qname: if-else
+  type: single
+  text1: <p>After the execution of the following code:</p>
+  code: |
+    int a = 0, b = 1, c = 2;
+    if (a && !b)
+        c++;
+    else
+        c--;
+  text2: <p>What is the value of <code>c</code>?</p>
+  answers:
+      - fraction: 100
+        text: 1
+      - fraction: 0
+        text: 2
+      - fraction: 0
+        text: 3
+      - fraction: 0
+        text: 0
+# =============================================================================
+- qname: parameter-passing
+  type: multi
+  text1: <p>Consider the following function:</p>
+  code: |
+    void add_ten(int *p)
+    {
+        *p = (*p) + 10;
+    }
+  text2: <p>After the line <code>int n = 2, *p;</code>, how is it possible
+         to modify the value of <code>n</code>?</p>
+  answers:
+      - fraction: 50
+        text: <code>add_ten(&n);</code>
+      - fraction: 50
+        text: <code>p = &n; add_ten(p);</code>
+      - fraction: -50
+        text: <code>add_ten(n);</code>
+      - fraction: -50
+        text: <code>add_ten(p);</code>
+      - fraction: -50
+        text: <code>*p = n; add_ten(p);</code>
+# =============================================================================
+- qname: string-length
+  type: numerical
+  text1: <p>After the following instructions:</p>
+  code: |
+    char st[] = "12345";
+    st[2] = '\0';
+  text2: <p>What is the length (number of significant characters) of the
+         string stored in the <code>st</code> array?</p>
+  answers:
+      - fraction: 100
+        text: 2
+        tolerance: 0
+# =============================================================================
+- qname: inc-via-pointer
+  type: numerical
+  text1: <p>After the following instructions:</p>
+  code: |
+    int x = 32, *p;
+    p = &x;
+    x = x + 1;
+    *p = *p + 1;
+  text2: <p>What is the value of <code>x</code>?</p>
+  answers:
+      - fraction: 100
+        text: 34
+        tolerance: 0
+# =============================================================================
+- qname: function-call
+  type: shortanswer
+  text1: >-
+    <p>Assume the existence of a function <code>void fct(char array[], int *n);
+    </code> and the following declarations in the main function:
+    <code>char arr[10]; int len;</code></p>
+    <p> How do you call <code>fct</code> from the main function? (note: write
+    the instruction without any spaces, with a proper syntax and ending with
+    a semicolon) </p>
+  answers:
+      - fraction: 100
+        text: fct(arr,&len);
+      - fraction: 100
+        text: fct(arr, &len);
+# =============================================================================
+- qname: structure-pointer
+  type: matching
+  text1: >-
+    <p>In this question, we consider <b>structure variables and pointers to
+    these structure variables.</b> Pair match each expression (we assume they
+    are all correct and that the proper declarations have been previously made)
+    with its signification:</p>
+  subquestions:
+      - text: <code>a.b</code>
+        answer: The <code>b</code> field of the structure <code>a</code>
+      - text: <code>a->b</code>
+        answer: The <code>b</code> field of the structure pointed by <code>a</code>
+      - text: <code>*a</code>
+        answer: The structure pointed by <code>a</code>
+      - text: <code>&a</code>
+        answer: The address of the structure <code>a</code>
+      - text: <code>&(a.b)</code>
+        answer: The address of the <code>b</code> field of the structure <code>a</code>
+      - text: <code>&(a->b)</code>
+        answer: "The address of the <code>b</code> field of the structure
+          pointed by <code>a</code>"
