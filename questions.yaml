@@ -1,5 +1,5 @@
 # =============================================================================
-# Examples of questions to test genquiz with a Moodle XML output
+# Sample questions to test genquiz with a Moodle XML output
 # E. Lavinal - University of Toulouse
 # =============================================================================
 - qname: array-walk
@@ -93,6 +93,8 @@
       - fraction: 100
         text: 34
         tolerance: 0
+  feedback: "<code>p</code> points to <code>x</code>, thus the instruction
+    <code>*p = *p + 1;</code> adds 1 to <code>x</code>."
 # =============================================================================
 - qname: function-call
   type: shortanswer
