@@ -2,6 +2,9 @@
 # Sample questions to test genquiz with a Moodle XML output
 # E. Lavinal - University of Toulouse
 # =============================================================================
+- qname: Miscellaneous
+  type: category
+# =============================================================================
 - qname: array-walk
   type: single
   text1: <p>After the execution of the following code:</p>
@@ -45,6 +48,22 @@
       - fraction: 0
         text: 0
 # =============================================================================
+- qname: string-length
+  type: numerical
+  text1: <p>After the following instructions:</p>
+  code: |
+    char st[] = "12345";
+    st[2] = '\0';
+  text2: <p>What is the length (number of significant characters) of the
+         string stored in the <code>st</code> array?</p>
+  answers:
+      - fraction: 100
+        text: 2
+        tolerance: 0
+# =============================================================================
+- qname: Pointers
+  type: category
+# =============================================================================
 - qname: parameter-passing
   type: multi
   text1: <p>Consider the following function:</p>
@@ -66,19 +85,6 @@
         text: <code>add_ten(p);</code>
       - fraction: -50
         text: <code>*p = n; add_ten(p);</code>
-# =============================================================================
-- qname: string-length
-  type: numerical
-  text1: <p>After the following instructions:</p>
-  code: |
-    char st[] = "12345";
-    st[2] = '\0';
-  text2: <p>What is the length (number of significant characters) of the
-         string stored in the <code>st</code> array?</p>
-  answers:
-      - fraction: 100
-        text: 2
-        tolerance: 0
 # =============================================================================
 - qname: inc-via-pointer
   type: numerical

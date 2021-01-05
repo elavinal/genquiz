@@ -83,10 +83,13 @@ table.ans { border: 1px solid black; }
 td.ans { border: 1px solid black; }
 
 </style></head>
-<h2>Quiz - HTML Preview</h2>
+<h1>Quiz - HTML Preview</h1>
+
+<h2 style="color:DarkRed;">Category "Miscellaneous"</h2>
 
 <hr>
 <h3>Q1) array-walk</h3>
+
 <p>After the execution of the following code:</p><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tab</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
 <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">)</span>
 <span class="p">{</span>
@@ -109,6 +112,7 @@ td.ans { border: 1px solid black; }
 
 <hr>
 <h3>Q2) if-else</h3>
+
 <p>After the execution of the following code:</p><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">b</span><span class="p">)</span>
     <span class="n">c</span><span class="o">++</span><span class="p">;</span>
@@ -127,7 +131,19 @@ td.ans { border: 1px solid black; }
 </form>
 
 <hr>
-<h3>Q3) parameter-passing</h3>
+<h3>Q3) string-length</h3>
+
+<p>After the following instructions:</p><div class="highlight"><pre><span></span><span class="kt">char</span> <span class="n">st</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;12345&quot;</span><span class="p">;</span>
+<span class="n">st</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+</pre></div>
+<p>What is the length (number of significant characters) of the string stored in the <code>st</code> array?</p><form>
+<label for="fname">Answer: </label><input type="text" id="fname" name="fname"> <span class="ans">[2 [100]]</span><br></form>
+
+<h2 style="color:DarkRed;">Category "Pointers"</h2>
+
+<hr>
+<h3>Q4) parameter-passing</h3>
+
 <p>Consider the following function:</p><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">add_ten</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>
@@ -147,15 +163,8 @@ td.ans { border: 1px solid black; }
 </form>
 
 <hr>
-<h3>Q4) string-length</h3>
-<p>After the following instructions:</p><div class="highlight"><pre><span></span><span class="kt">char</span> <span class="n">st</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;12345&quot;</span><span class="p">;</span>
-<span class="n">st</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
-</pre></div>
-<p>What is the length (number of significant characters) of the string stored in the <code>st</code> array?</p><form>
-<label for="fname">Answer: </label><input type="text" id="fname" name="fname"> <span class="ans">[2 [100]]</span><br></form>
-
-<hr>
 <h3>Q5) inc-via-pointer</h3>
+
 <p>After the following instructions:</p><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
 <span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">;</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
@@ -166,11 +175,13 @@ td.ans { border: 1px solid black; }
 
 <hr>
 <h3>Q6) function-call</h3>
+
 <p>Assume the existence of a function <code>void fct(char array[], int *n); </code> and the following declarations in the main function: <code>char arr[10]; int len;</code></p> <p> How do you call <code>fct</code> from the main function? (note: write the instruction without any spaces, with a proper syntax and ending with a semicolon) </p><form>
 <label for="fname">Answer: </label><input type="text" id="fname" name="fname"> <span class="ans">[fct(arr,&len); [100] or fct(arr, &len); [100]]</span><br></form>
 
 <hr>
 <h3>Q7) structure-pointer</h3>
+
 <p>In this question, we consider <b>structure variables and pointers to these structure variables.</b> Pair match each expression (we assume they are all correct and that the proper declarations have been previously made) with its signification:</p>
 <table class="ans">
 <tr>

@@ -34,16 +34,19 @@ def make_html_header():
     h += 'table.ans { border: 1px solid black; }\n'
     h += 'td.ans { border: 1px solid black; }\n'
     h += '\n</style></head>\n'
-    h += '<h2>Quiz - HTML Preview</h2>\n'
+    h += '<h1>Quiz - HTML Preview</h1>\n'
     return h
 
 def make_html_footer():
     return '\n</body></html>'
 
+def make_category(question):
+    return '\n<h2 style="color:DarkRed;">Category "{}"</h2>\n'.format(question['qname'])
+
 def make_question_title(name):
     global question_number
     question_number += 1
-    return '\n<hr>\n<h3>Q{}) {}</h3>'.format(question_number, name)
+    return '\n<hr>\n<h3>Q{}) {}</h3>\n'.format(question_number, name)
 
 def generate_code_html(question):
     # Use pygments to highlight the code

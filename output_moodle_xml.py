@@ -82,6 +82,11 @@ def general_feedback(question):
             str += '</generalfeedback>'
     return str
 
+def make_category(question):
+    q = '<question type="category"><category><text>$course$/{}</text>'\
+        '</category></question>'.format(question['qname'].replace(' ','_'))
+    return q
+
 def make_question_multichoice(question):
     # Name and type
     q = question_type('multichoice', question['qname'])

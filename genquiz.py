@@ -35,7 +35,9 @@ def make_quiz(input_file, output):
         error = False
         i = 0
         for q in data:
-            if q['type'] == 'multi' or q['type'] == 'single':
+            if q['type'] == 'category':
+                qstring = output.make_category(q)
+            elif q['type'] == 'multi' or q['type'] == 'single':
                 qstring = output.make_question_multichoice(q)
             elif q['type'] == 'numerical':
                 qstring = output.make_question_numerical(q)

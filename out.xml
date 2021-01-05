@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
+  <question type="category">
+    <category>
+      <text>$course$/Miscellaneous</text>
+    </category>
+  </question>
   <question type="multichoice">
     <name>
       <text>array-walk</text>
@@ -51,6 +56,24 @@
       <text><![CDATA[0]]></text>
     </answer>
   </question>
+  <question type="numerical">
+    <name>
+      <text>string-length</text>
+    </name>
+    <defaultgrade>1</defaultgrade>
+    <questiontext format="html">
+      <text><![CDATA[<p>After the following instructions:</p><img alt="code-fig" src="data:image/png;base64,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"><p>What is the length (number of significant characters) of the string stored in the <code>st</code> array?</p>]]></text>
+    </questiontext>
+    <answer fraction="100" format="moodle_auto_format">
+      <text><![CDATA[2]]></text>
+      <tolerance>0</tolerance>
+    </answer>
+  </question>
+  <question type="category">
+    <category>
+      <text>$course$/Pointers</text>
+    </category>
+  </question>
   <question type="multichoice">
     <name>
       <text>parameter-passing</text>
@@ -76,19 +99,6 @@
     </answer>
     <answer fraction="-50" format="html">
       <text><![CDATA[<code>*p = n; add_ten(p);</code>]]></text>
-    </answer>
-  </question>
-  <question type="numerical">
-    <name>
-      <text>string-length</text>
-    </name>
-    <defaultgrade>1</defaultgrade>
-    <questiontext format="html">
-      <text><![CDATA[<p>After the following instructions:</p><img alt="code-fig" src="data:image/png;base64,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"><p>What is the length (number of significant characters) of the string stored in the <code>st</code> array?</p>]]></text>
-    </questiontext>
-    <answer fraction="100" format="moodle_auto_format">
-      <text><![CDATA[2]]></text>
-      <tolerance>0</tolerance>
     </answer>
   </question>
   <question type="numerical">
