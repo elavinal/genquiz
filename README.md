@@ -15,15 +15,22 @@ Just clone the git repository...
 ## Running the example
 Run the following command:
 
-    $ python genquiz.py moodle questions.yaml
+    $ python genquiz.py questions.yaml
 
 This will generate the `out.xml` file that you can directly import in Moodle.
 
 You can also generate an HTML preview of the questions:
 
-    $ python genquiz.py html questions.yaml
+    $ python genquiz.py -f html questions.yaml
 
 Note that the generated `out.html` file is not strictly compliant to HTML 4.01 but it's enough to have a preview of the questions in a browser :)
+
+## Using multiple input files
+You can specify multiple input files that will be merged into a single output.
+Each file can for instance belong to a specific category of questions.
+For example:
+
+    $ python genquiz.py -o test-spring-2021.xml cat1.yaml cat2.yaml cat3.yaml
 
 ## Licence
 

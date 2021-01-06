@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# TODO: Add multiple input files
 # TODO: Add target language option: C, Python...
 
 import argparse
@@ -58,18 +57,20 @@ def make_quiz(input_file, output):
     print('=> Total number of questions: {}'.format(i))
     return quiz
 
-def gen_html_preview(input_file, output_file):
+def gen_html_preview(input_file_list, output_file):
     quiz = output_html.make_html_header()
-    quiz += make_quiz(input_file, output_html)
+    for input_file in input_file_list:
+        quiz += make_quiz(input_file, output_html)
     quiz += output_html.make_html_footer()
     with open(output_file, "wt") as html_file:
         print("Generating HTML file...")
         html_file.write(quiz)
         print("Done (cf. {}).".format(output_file))
 
-def gen_moodle_xml(input_file, output_file):
+def gen_moodle_xml(input_file_list, output_file):
     quiz = '<quiz>'
-    quiz += make_quiz(input_file, output_moodle_xml)
+    for input_file in input_file_list:
+        quiz += make_quiz(input_file, output_moodle_xml)
     quiz += '</quiz>'
     dom = xml.dom.minidom.parseString(quiz)
     with open(output_file, "wt") as xml_file:
@@ -82,27 +83,28 @@ def gen_moodle_xml(input_file, output_file):
 # =============================================================================
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('output-format', choices=['moodle','html'],
-        help='specify the output format (Moodle XML or HTML preview)')
-    parser.add_argument('input-file',
-        help='specify the YAML input file containing the questions')
+    parser.add_argument('input-file', nargs='+',
+        help='specify the YAML input file(s) containing the questions')
+    parser.add_argument('-f', '--format', choices=['moodle','html'],
+        default='moodle',
+        help='specify the output format: Moodle XML (default) or HTML preview')
     parser.add_argument('-o', '--output', metavar='FILE',
                         help='write output to FILE (default to out.*)')
     parser.add_argument('-v', '--version', action='version',
                         version='%(prog)s ' + VERSION)
     args = parser.parse_args()
     # print(args)
-    format = vars(args)['output-format']
-    input_file = vars(args)['input-file']
+    format = args.format
     if args.output != None:
         output_file = args.output
     else:
         output_file = ('out.xml' if format == 'moodle' else 'out.html')
+    input_file_list = vars(args)['input-file']
 
     if format == 'moodle':
-        gen_moodle_xml(input_file, output_file)
+        gen_moodle_xml(input_file_list, output_file)
     elif format == 'html':
-        gen_html_preview(input_file, output_file)
+        gen_html_preview(input_file_list, output_file)
     else:
         print("Error, unknown format.")
 
