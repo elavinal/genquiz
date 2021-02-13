@@ -24,6 +24,7 @@ def clean_html(text, line_break=True):
     else:
         temp = temp.replace('</p>','')
     temp = temp.replace('<code>','\\texttt{').replace('</code>','}')
+    temp = temp.replace('<b>','\\textbf{').replace('</b>','}')
     return temp
 
 def clean_qname(name):
@@ -45,16 +46,16 @@ def generate_verbatimbox(code, name):
 
 def check_multicol(answers):
     for a in answers:
-        text_nocode = a['text'].replace('<code>', '').replace('</code>', '')
+        text_nocode = str(a['text']).replace('<code>', '').replace('</code>', '')
         if len(text_nocode) > MAX_LEN_MULTICOL:
             return False
     return True
 
 def question_answer(answer):
     if answer['fraction'] > 0:
-        a = '\\correctchoice{' + clean_html(answer['text']) + '}\n'
+        a = '\\correctchoice{' + clean_html(str(answer['text'])) + '}\n'
     else:
-        a = '\\wrongchoice{' + clean_html(answer['text']) + '}\n'
+        a = '\\wrongchoice{' + clean_html(str(answer['text'])) + '}\n'
     return a
 
 def make_question_multichoice(question):
