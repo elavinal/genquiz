@@ -22,6 +22,7 @@ import yaml
 import xml.dom.minidom
 import output_html
 import output_moodle_xml
+import output_amc
 
 VERSION = '0.1'
 
@@ -78,6 +79,15 @@ def gen_moodle_xml(input_file_list, output_file):
         dom.writexml(xml_file, addindent="  ", newl="\n", encoding="UTF-8")
         print("Done (cf. {}).".format(output_file))
 
+def gen_amc_subset(input_file_list, output_file):
+    quiz = ''
+    for input_file in input_file_list:
+        quiz += make_quiz(input_file, output_amc)
+    with open(output_file, "wt") as text_file:
+        print("Generating AMC TEX file...")
+        text_file.write(quiz)
+        print("Done (cf. {}).".format(output_file))
+
 # =============================================================================
 # Main function
 # =============================================================================
@@ -85,7 +95,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('input-file', nargs='+',
         help='specify the YAML input file(s) containing the questions')
-    parser.add_argument('-f', '--format', choices=['moodle','html'],
+    parser.add_argument('-f', '--format', choices=['moodle','html','amc'],
         default='moodle',
         help='specify the output format: Moodle XML (default) or HTML preview')
     parser.add_argument('-o', '--output', metavar='FILE',
@@ -95,16 +105,19 @@ def main():
     args = parser.parse_args()
     # print(args)
     format = args.format
+    input_file_list = vars(args)['input-file']
+    output_file = ''
     if args.output != None:
         output_file = args.output
-    else:
-        output_file = ('out.xml' if format == 'moodle' else 'out.html')
-    input_file_list = vars(args)['input-file']
-
     if format == 'moodle':
+        if output_file == '': output_file = 'out.xml'
         gen_moodle_xml(input_file_list, output_file)
     elif format == 'html':
+        if output_file == '': output_file = 'out.html'
         gen_html_preview(input_file_list, output_file)
+    elif format == 'amc':
+        if output_file == '': output_file = 'out.tex'
+        gen_amc_subset(input_file_list, output_file)
     else:
         print("Error, unknown format.")
 
