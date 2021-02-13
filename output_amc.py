@@ -15,14 +15,26 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 DEFAULT_GROUP = 'my_group'
+MAX_LEN_MULTICOL = 20
 
-def clean_html(text):
-    rep1 = text.replace('<p>','').replace('</p>','\\\\')
-    rep2 = rep1.replace('<code>','\\texttt{').replace('</code>','}')
-    return rep2
+def clean_html(text, line_break=True):
+    temp = text.replace('<p>','')
+    if line_break:
+        temp = temp.replace('</p>','\\\\')
+    else:
+        temp = temp.replace('</p>','')
+    temp = temp.replace('<code>','\\texttt{').replace('</code>','}')
+    return temp
 
 def clean_qname(name):
-    return name.replace('-', '')
+    rep1 = name.replace('-', '')
+    rep2 = rep1.replace('1', 'one').\
+                replace('2', 'two').\
+                replace('3', 'three').\
+                replace('4', 'four').\
+                replace('5', 'five').\
+                replace('6', 'six')
+    return rep2
 
 def generate_verbatimbox(code, name):
     tex = '\\begin{myverbbox}{\\' + name + '}\n'
@@ -30,6 +42,13 @@ def generate_verbatimbox(code, name):
     # tex += '\n'
     tex += '\\end{myverbbox}\n'
     return tex
+
+def check_multicol(answers):
+    for a in answers:
+        text_nocode = a['text'].replace('<code>', '').replace('</code>', '')
+        if len(text_nocode) > MAX_LEN_MULTICOL:
+            return False
+    return True
 
 def question_answer(answer):
     if answer['fraction'] > 0:
@@ -51,15 +70,22 @@ def make_question_multichoice(question):
     box = ''
     if 'code' in question:
         box = generate_verbatimbox(question['code'], qname)
-        q += '\\hspace*{1em}\\fbox{\\' + qname + '}\\\\ \n'
+        q += '[3pt]\n\\hspace*{1em}\\fbox{\\' + qname + '}\\\\ \n'
         if 'text2' in question:
-            q += clean_html(question['text2'])
+            q += clean_html(question['text2'], line_break=False)
             q += '\n'
     # Answers
+    multicol = check_multicol(question['answers'])
+    if multicol:
+        q += '\\setlength{\\columnseprule}{0pt}\n'
+        q += '\\setlength{\\columnsep}{0pt}\n'
+        q += '\\begin{multicols}{2}\n'
     q += '\\begin{choices}\n'
     for answer in question['answers']:
          q += question_answer(answer)
     q += '\\end{choices}\n'
+    if multicol:
+        q += '\\end{multicols}\n'
     if question['type'] == 'single':
         q += '\\end{question}\n}\n'
     else:
