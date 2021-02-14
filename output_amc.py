@@ -75,8 +75,9 @@ def make_question_multichoice(question):
     box = ''
     if 'code' in question:
         box = generate_verbatimbox(question['code'], qname)
-        q += '[3pt]\n\\hspace*{1em}\\fbox{\\' + qname + '}\\\\ \n'
+        q += '[3pt]\n\\hspace*{1em}\\fbox{\\' + qname + '}\n'
         if 'text2' in question:
+            q += '\n'
             q += clean_html(question['text2'], line_break=False)
             q += '\n'
     # Answers
