@@ -21,8 +21,8 @@ def clean_html(text, line_break=True):
     # escaping characters for LaTeX
     temp = text.replace('{','\\{').replace('}','\\}')
     temp = temp.replace('&', '\\&')
-    temp = temp.replace('<p>','')
     # parsing some html tags
+    temp = temp.replace('<p>','')
     if line_break:
         temp = temp.replace('</p>','\\\\')
     else:
