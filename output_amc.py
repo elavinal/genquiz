@@ -49,11 +49,20 @@ def generate_verbatimbox(code, name):
     return tex
 
 def check_multicol(answers):
+    max = 0
     for a in answers:
         text_nocode = str(a['text']).replace('<code>', '').replace('</code>', '')
-        if len(text_nocode) > MAX_LEN_MULTICOL:
-            return False
-    return True
+        # if len(text_nocode) > MAX_LEN_MULTICOL:
+        #     return 1
+        if len(text_nocode) > max:
+            max = len(text_nocode)
+            if max > MAX_LEN_MULTICOL:
+                return 1
+    if max <= 5 and len(answers) >= 5:
+        # 3 columns if at least 5 short answers
+        return 3
+    # else 2 columns
+    return 2
 
 def question_answer(answer):
     if answer['fraction'] > 0:
@@ -82,15 +91,15 @@ def make_question_multichoice(question):
             q += '\n'
     # Answers
     multicol = check_multicol(question['answers'])
-    if multicol:
+    if multicol > 1:
         q += '\\setlength{\\columnseprule}{0pt}\n'
         q += '\\setlength{\\columnsep}{0pt}\n'
-        q += '\\begin{multicols}{2}\n'
+        q += '\\begin{multicols}{' + str(multicol) + '}\n'
     q += '\\begin{choices}\n'
     for answer in question['answers']:
          q += question_answer(answer)
     q += '\\end{choices}\n'
-    if multicol:
+    if multicol > 1:
         q += '\\end{multicols}\n'
     if question['type'] == 'single':
         q += '\\end{question}\n}\n'
