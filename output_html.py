@@ -51,15 +51,16 @@ def make_question_title(name):
 def generate_code_html(question):
     # Use pygments to highlight the code
     code_html = highlight(question['code'], CLexer(), HtmlFormatter())
-    if "text2" in question:
-        return code_html + question['text2']
-    else:
-        return code_html
+    return code_html
 
 def question_text(question):
-    str = '\n' + question['text1']
-    if "code" in question:
+    str = '\n<p>' + question['text1'] + '</p>\n'
+    if 'code' in question:
         str += generate_code_html(question)
+    if 'text2' in question:
+        str += '<p>' + question['text2'] + '</p>\n'
+    else:
+        str += '<p></p>\n'
     return str
 
 def make_question_multichoice(question):
@@ -75,8 +76,13 @@ def make_question_multichoice(question):
         in_type = 'checkbox'
     for i, answer in enumerate(question['answers']):
         q += '  <input type="{}" id="id{}" name="quest">\n'.format(in_type, i)
-        q += '  <label for="id{}">{} <span class="ans">[{}]</span></label><br>\n'\
-                .format(i, answer['text'], answer['fraction'])
+        if 'text' in answer:
+            q += '  <label for="id{}">{} <span class="ans">[{}]</span></label><br>\n'\
+                    .format(i, answer['text'], answer['fraction'])
+        elif 'code' in answer:
+            code_html = highlight(answer['code'], CLexer(), HtmlFormatter())
+            q += '  <label for="id{}">{} <span class="ans">[{}]</span></label><br>\n'\
+                    .format(i, code_html, answer['fraction'])
     q += '</form>\n'
     return q
 
