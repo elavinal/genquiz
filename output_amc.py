@@ -59,8 +59,6 @@ def check_multicol(answers):
             # or \begin{multicols}{2}\AMCBoxedAnswers TO CHECK...
             return 1
         text_nocode = str(a['text']).replace('<code>', '').replace('</code>', '')
-        # if len(text_nocode) > MAX_LEN_MULTICOL:
-        #     return 1
         if len(text_nocode) > max:
             max = len(text_nocode)
             if max > MAX_LEN_MULTICOL:
@@ -98,9 +96,9 @@ def make_question_multichoice(question):
     box = ''
     if 'code' in question:
         box = generate_verbatimbox(question['code'], qname)
-        q += '[3pt]\n\\hspace*{1em}\\fbox{\\' + qname + '}\n'
+        q += '\\\\[3pt]\n\\hspace*{1em}\\fbox{\\' + qname + '}\n'
         if 'text2' in question:
-            q += '\n'
+            q += '\\\\[3pt]\n'
             q += clean_html(question['text2'], line_break=False)
             q += '\n'
     # Answers
