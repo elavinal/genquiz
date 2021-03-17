@@ -65,6 +65,7 @@ def question_text(question):
 
 def question_answer(answer, format='html'):
     str = '<answer fraction="{}" format="{}">'.format(answer['fraction'], format)
+    # TODO. Consider 'code' format in answer
     str += '<text><![CDATA[{}]]></text>'.format(answer['text'])
     if 'feedback' in answer:
         str += '<feedback format="html"><text><![CDATA[{}]]></text>'\
