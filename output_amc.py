@@ -33,12 +33,15 @@ def clean_html(text, line_break=True):
 
 def clean_qname(name):
     rep1 = name.replace('-', '')
-    rep2 = rep1.replace('1', 'one').\
+    rep2 = rep1.replace('0', 'zero').\
+                replace('1', 'one').\
                 replace('2', 'two').\
                 replace('3', 'three').\
                 replace('4', 'four').\
                 replace('5', 'five').\
-                replace('6', 'six')
+                replace('6', 'six').\
+                replace('7', 'seven').\
+                replace('8', 'eight')
     return rep2
 
 def generate_verbatimbox(code, name):
@@ -51,6 +54,10 @@ def generate_verbatimbox(code, name):
 def check_multicol(answers):
     max = 0
     for a in answers:
+        if 'code' in a:
+            # no column if code in answer
+            # or \begin{multicols}{2}\AMCBoxedAnswers TO CHECK...
+            return 1
         text_nocode = str(a['text']).replace('<code>', '').replace('</code>', '')
         # if len(text_nocode) > MAX_LEN_MULTICOL:
         #     return 1
@@ -69,6 +76,13 @@ def question_answer(answer):
         a = '\\correctchoice{' + clean_html(str(answer['text'])) + '}\n'
     else:
         a = '\\wrongchoice{' + clean_html(str(answer['text'])) + '}\n'
+    return a
+
+def question_answer_code(answer, boxname):
+    if answer['fraction'] > 0:
+        a = '\\correctchoice{\\fbox{\\' + boxname + '}}\n'
+    else:
+        a = '\\wrongchoice{\\fbox{\\' + boxname + '}}\n'
     return a
 
 def make_question_multichoice(question):
@@ -96,8 +110,13 @@ def make_question_multichoice(question):
         q += '\\setlength{\\columnsep}{0pt}\n'
         q += '\\begin{multicols}{' + str(multicol) + '}\n'
     q += '\\begin{choices}\n'
-    for answer in question['answers']:
-         q += question_answer(answer)
+    for i, answer in enumerate(question['answers']):
+        if 'text' in answer:
+            q += question_answer(answer)
+        elif 'code' in answer:
+            boxname = clean_qname(qname + str(i))
+            box += generate_verbatimbox(answer['code'], boxname)
+            q += question_answer_code(answer, boxname)
     q += '\\end{choices}\n'
     if multicol > 1:
         q += '\\end{multicols}\n'
