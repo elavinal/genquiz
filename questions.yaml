@@ -7,7 +7,7 @@
 # =============================================================================
 - qname: array-walk
   type: single
-  text1: <p>After the execution of the following code:</p>
+  text1: "After the execution of the following code:"
   code: |
     int i = 1, tab[4] = {1, 2, 3, 4};
     while (i < 4)
@@ -15,7 +15,7 @@
         tab[i] = tab[i] + 1;
         i = i + 2;
     }
-  text2: <p>What values are in the <code>tab</code> array?</p>
+  text2: What values are in the <code>tab</code> array?
   answers:
       - fraction: 100
         text: 1, 3, 3, 5
@@ -30,14 +30,14 @@
 # =============================================================================
 - qname: if-else
   type: single
-  text1: <p>After the execution of the following code:</p>
+  text1: "After the execution of the following code:"
   code: |
     int a = 0, b = 1, c = 2;
     if (a && !b)
         c++;
     else
         c--;
-  text2: <p>What is the value of <code>c</code>?</p>
+  text2: What is the value of <code>c</code>?
   answers:
       - fraction: 100
         text: 1
@@ -50,12 +50,12 @@
 # =============================================================================
 - qname: string-length
   type: numerical
-  text1: <p>After the following instructions:</p>
+  text1: "After the following instructions:"
   code: |
     char st[] = "12345";
     st[2] = '\0';
-  text2: <p>What is the length (number of significant characters) of the
-         string stored in the <code>st</code> array?</p>
+  text2: What is the length (number of significant characters) of the
+         string stored in the <code>st</code> array?
   answers:
       - fraction: 100
         text: 2
@@ -88,13 +88,13 @@
 # =============================================================================
 - qname: inc-via-pointer
   type: numerical
-  text1: <p>After the following instructions:</p>
+  text1: "After the following instructions:"
   code: |
     int x = 32, *p;
     p = &x;
     x = x + 1;
     *p = *p + 1;
-  text2: <p>What is the value of <code>x</code>?</p>
+  text2: What is the value of <code>x</code>?
   answers:
       - fraction: 100
         text: 34
