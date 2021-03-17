@@ -25,7 +25,7 @@ from pygments.formatters import ImageFormatter
 
 def generate_code_image(question, save_image=False):
     # Start of the question
-    start_str = '<![CDATA[' + question['text1']
+    start_str = '<![CDATA[<p>' + question['text1'] + '</p>\n'
     # Generate file name from question name
     Path('img').mkdir(parents=True, exist_ok=True)
     if save_image:
@@ -44,7 +44,7 @@ def generate_code_image(question, save_image=False):
         img_str = '<img alt="code-fig" src="data:image/png;base64,{}">'.format(encoded_str)
     # End of the question
     if 'text2' in question:
-        end_str = question['text2'] + ']]>'
+        end_str = '\n<p>' + question['text2'] + '</p>]]>'
     else:
         end_str = ']]>'
     return start_str + img_str + end_str
@@ -59,7 +59,7 @@ def question_text(question):
     if 'code' in question:
         str += generate_code_image(question)
     else:
-        str += '<![CDATA[' + question['text1'] + ']]>'
+        str += '<![CDATA[<p>' + question['text1'] + '</p>]]>'
     str += '</text></questiontext>'
     return str
 
