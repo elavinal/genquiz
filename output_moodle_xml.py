@@ -23,18 +23,17 @@ from pygments.lexers.c_cpp import CLexer
 from pygments.formatters import HtmlFormatter
 from pygments.formatters import ImageFormatter
 
-def generate_code_image(question, save_image=False):
-    # Start of the question
-    start_str = '<![CDATA[<p>' + question['text1'] + '</p>\n'
+
+def generate_code_image(code, save_image=False, qname=None):
     # Generate file name from question name
     Path('img').mkdir(parents=True, exist_ok=True)
-    if save_image:
-        fname = "img/" + question['qname'].replace(" ", "-") + ".png"
+    if save_image and qname!=None:
+        fname = "img/" + qname.replace(" ", "-") + ".png"
     else:
         fname = "img/out.png"
     # Use pygments to highlight the code and generate image
     with open(fname, "wb") as png_file:
-        highlight(question['code'],
+        highlight(code,
                   CLexer(),
                   ImageFormatter(line_pad=4, image_pad=5, line_numbers=False),
                   png_file)
@@ -42,6 +41,13 @@ def generate_code_image(question, save_image=False):
     with open(fname, 'rb') as image_file:
         encoded_str = base64.b64encode(image_file.read()).decode('UTF-8')
         img_str = '<img alt="code-fig" src="data:image/png;base64,{}">'.format(encoded_str)
+    return img_str
+
+def generate_code_question(question, save_image=False):
+    # Start of the question
+    start_str = '<![CDATA[<p>' + question['text1'] + '</p>\n'
+    # Code as image
+    img_str = generate_code_image(question['code'], qname=question['qname'])
     # End of the question
     if 'text2' in question:
         end_str = '\n<p>' + question['text2'] + '</p>]]>'
@@ -57,7 +63,7 @@ def question_type(type, name):
 def question_text(question):
     str = '<questiontext format="html"><text>'
     if 'code' in question:
-        str += generate_code_image(question)
+        str += generate_code_question(question)
     else:
         str += '<![CDATA[<p>' + question['text1'] + '</p>]]>'
     str += '</text></questiontext>'
@@ -66,7 +72,10 @@ def question_text(question):
 def question_answer(answer, format='html'):
     str = '<answer fraction="{}" format="{}">'.format(answer['fraction'], format)
     # TODO. Consider 'code' format in answer
-    str += '<text><![CDATA[{}]]></text>'.format(answer['text'])
+    if 'text' in answer:
+        str += '<text><![CDATA[{}]]></text>'.format(answer['text'])
+    elif 'code' in answer:
+        str += '<text><![CDATA[{}]]></text>'.format(generate_code_image(answer['code']))
     if 'feedback' in answer:
         str += '<feedback format="html"><text><![CDATA[{}]]></text>'\
                '</feedback>'.format(answer['feedback'])
