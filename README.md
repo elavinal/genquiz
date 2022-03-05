@@ -7,7 +7,8 @@ Generate a Moodle quiz from questions in a YAML file.
 The [questions.yaml](./questions.yaml) file presents examples of questions related to the C programming language. Currently, `genquiz` supports _multiple choice_, _numerical_, _short answer_ and _matching_ question types.
 
 ## Requirements
-The generic syntax highlighter [Pygments](https://pygments.org/).
+- PyYAML (e.g. `pip install pyyaml`)
+- The generic syntax highlighter [Pygments](https://pygments.org/) (e.g. `pip install Pygments` and `pip install Pillow`)
 
 ## Installing
 Just clone the git repository...
